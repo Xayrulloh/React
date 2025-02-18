@@ -1,25 +1,18 @@
 import { useState } from 'react'
 import '../styles/main.css'
+import MainForm from './Main-Form'
+import MainIngredients from './Main-Ingredients'
+import MainRecipe from './Main-Recipe'
 
 export default function Main() {
   const [ingredients, setIngredients] = useState([])
-  const ingredientsLi = ingredients.map((ingredient, key) => <li key={key}>{ingredient}</li>)
-
-  const formAction = (formData) => {
-    const newIngredient = formData.get('ingredient')
-
-    setIngredients(prev => [...prev, newIngredient])
-  }
+  const [recipe, setRecipe] = useState(false)
 
   return (
     <main>
-      <form className='add-ingredient-form' action={formAction}>
-        <input name='ingredient' aria-label='Add ingredient' type="text" placeholder="e.g. oregano" />
-        <button type="submit">Add ingredient</button>
-      </form>
-      <ul>
-        {ingredientsLi}
-      </ul>
+      <MainForm setIngredients={setIngredients} />
+      <MainIngredients ingredients={ingredients} setRecipe={setRecipe} />
+      {recipe && <MainRecipe />}
     </main>
   )
 }
